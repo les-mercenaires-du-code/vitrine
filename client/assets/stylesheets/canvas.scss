@@ -1,0 +1,96 @@
+html,
+body {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  background: #e6e5e8;
+
+  // &.is-black {
+  // }
+  canvas {
+    // background: #23212D;
+    // VERY DARK 15121b
+  }
+
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    z-index: -99;
+    left: -20%;
+    top: -20%;
+    width: 140%;
+    height: 140%;
+  }
+
+  &::before {
+    // background: #23212d; /* Old browsers */
+    // background: -moz-radial-gradient(center, ellipse cover, #2b2933 0%, #2C2C2C 35%,  #2b2933 40%,#15121b 75%, #15121b 200%); /* FF3.6-15 */
+    // background: -webkit-radial-gradient(center, ellipse cover, #2b2933 0%, #2C2C2C 35%, #2b2933 40%,#15121b 75%, #15121b 200%); /* Chrome10-25,Safari5.1-6 */
+    // background: radial-gradient(ellipse at center, #2b2933 0%, #2C2C2C 35%,  #2b2933 40%,#15121b 75%, #15121b 200%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    // filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#23212d', endColorstr='#15121b',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+  }
+
+  &::after {
+
+  }
+
+  .hided {
+   opacity: 0;
+   margin: 0;
+  }
+
+  .section-intro {
+    position: relative;
+    height: 700px;
+    padding-top: 100px;
+
+    > * {
+      position: absolute;
+      left: 50%;
+      margin-left: -150px;
+    }
+
+    canvas {
+      padding-left: 20px;
+    }
+
+    //
+    // .section-intro-content {
+    //   position: relative;
+    //   top: 150px;
+    //   display: inline-block;
+    //
+    //   .intro-title {
+    //     padding: 0 5px;
+    //     font-variant: small-caps;
+    //     letter-spacing: .5rem;
+    //     font-weight: 100;
+    //     font-family: helvetica neue, helvetica;
+    //     color: #E8E8E8;
+    //     font-size: 1.8rem;
+    //
+    //     .mercenary-of-what {
+    //       position: relative;
+    //       display: inline-block;
+    //     }
+    //
+    //     .mercenaires-du-cul {
+    //       position: absolute;
+    //       top: 0;
+    //       left: 0;
+    //     }
+    //   }
+    //
+    //   .reveal-hided {
+    //     position: absolute;
+    //     top: 0;
+    //     left: 0;
+    //     right: 0;
+    //     bottom: 0;
+    //     background: #23212D;
+    //   }
+    // }
+  }
+}
