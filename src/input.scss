@@ -1,0 +1,48 @@
+.beautify-it {
+  position: relative;
+  display: inline-block;
+  margin: 5px;
+  filter: grayscale(1);
+
+  &::after {
+    content: "";
+    position: absolute;
+
+  }
+
+  textarea,
+  input {
+    height: 30px;
+    box-shadow: -1px -1px rgba(0, 0, 0, .3);
+    background: none;
+    padding-left: 25px;
+  }
+
+  .fas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 20px;
+    height: 30px;
+    background: #ff0;
+    z-index: 0;
+    box-shadow: 0 0 3px rgba(0, 0, 0, .5);
+    z-index: 1;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 30px;
+  }
+
+  &.is-focused,
+  &:hover {
+    filter: grayscale(0);
+  }
+
+  &.is-valid {
+    filter: grayscale(0);
+
+    .fas {
+      background: rgb(30,200, 40);
+    }
+  }
+}

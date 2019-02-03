@@ -1,0 +1,40 @@
+.add-pro-bill {
+  width:  500px;
+  box-shadow: 0 0 3px rgba(0, 0, 0, .3);
+
+  .add-pro-bill-header {
+    padding: 20px 10px;
+    background: #E9E9E9;
+
+    .add-pro-bill-header-title {
+      font: 100 5.2rem 'helvetica neue';
+      letter-spacing: .06rem;
+    }
+  }
+
+  .add-pro-bill-content {
+    padding: 20px 10px;
+
+    .add-pro-bill-container {
+      display: flex;
+
+      .beautify-it {
+        width: 50%;
+
+        > textarea,
+        > input {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  .add-pro-bill-footer {
+    padding: 20px 10px;
+    display: flex;
+    justify-content: space-between;
+
+    .btn-primary {
+    }
+  }
+}
