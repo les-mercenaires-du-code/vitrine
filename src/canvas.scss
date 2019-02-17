@@ -1,0 +1,9 @@
+html,
+body {
+  height: 100%;
+  background: #e6e5e8;
+
+  &.is-black {
+    background: #23212D;
+  }
+}
