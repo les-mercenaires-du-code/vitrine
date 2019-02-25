@@ -16,8 +16,8 @@ class Scene {
 
     this.eventsManager = {
       step0: false,
-      step1: false  ,
-      step2 : false,
+      step1: false,
+      step2: false,
     };
     this.eventsArr = Object.keys(this.eventsManager);
     this.eventsArrLength = this.eventsArr.length - 1;
@@ -43,18 +43,17 @@ class Scene {
     this.step1 = new Step1(this);
     this.step1.start();
 
-
     this.step2 = new Step2(this);
     this.step2.start();
 
     // trigger action
-    for (let i = 0;i <= this.eventsArrLength; i++) {
-      const event = this.eventsArr[i];
-
-      if (this.eventsManager[event]) {
-        this.createEvent(event);
-      }
-    }
+    // for (let i = 0;i <= this.eventsArrLength; i++) {
+    //   const event = this.eventsArr[i];
+    //
+    //   if (this.eventsManager[event]) {
+    //     this.createEvent(event);
+    //   }
+    // }
 
     // this.start();
   }
@@ -110,7 +109,6 @@ class Scene {
         this.createEvent(event, newValue);
       }
     }
-    // console.log("----------");
   }
 
   createEvent(event, value) {
@@ -123,7 +121,14 @@ class Scene {
   }
 }
 
+const test = new Scene(paper);
+
 window.onload = () => {
-  const test = new Scene(paper);
   test.init();
+}
+
+window.onresize = () => {
+  test.step0.resize();
+  test.step1.resize();
+  test.step2.resize();
 }

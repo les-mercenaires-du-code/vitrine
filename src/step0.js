@@ -61,6 +61,15 @@ class Step0 extends Mc {
     this.paper.view.onFrame = (time) => {};
   }
 
+  resize() {
+    this.paper.project.activeLayer.removeChildren();
+    console.log(this.paper);
+    // this.init();
+    // if (this.isRunning) {
+    //   this.start();
+    // }
+  }
+
   createTri(){
     let tri = new this.paper.Path();
     tri.entity = 'triangle';

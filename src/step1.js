@@ -43,8 +43,6 @@ class Step1 extends Mc {
     }, false);
 
     this.canvas.onclick = (e) => {
-      console.log(this.canvas);
-      console.log(this.ctx);
       this.isRunning ? this.stop() : this.start();
     };
   }
@@ -68,7 +66,6 @@ class Step1 extends Mc {
   }
 
   start() {
-    // console.log('step1 start');
     if (!this.mGroup) this.init();
 
     this.isRunning = true;
@@ -81,6 +78,14 @@ class Step1 extends Mc {
     this.isRunning = false;
     // animation
     this.paper.view.onFrame = (time) => {};
+  }
+
+  resize() {
+    this.paper.project.clear();
+    this.init();
+    if (this.isRunning) {
+      this.start();
+    }
   }
 
   initDottedLine() {

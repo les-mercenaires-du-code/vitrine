@@ -62,6 +62,14 @@ class Step0 extends Mc {
     this.paper.view.onFrame = (time) => {};
   }
 
+  resize() {
+    this.paper.project.clear();
+    this.init();
+    if (this.isRunning) {
+      this.start();
+    }
+  }
+
   createLine(n) {
     const path1 = new paper.Path();
     const amplitude = this.$scene.wH / 3;
