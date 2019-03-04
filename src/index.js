@@ -1,151 +1,121 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.scss';
-import './form.scss';
-import './input.scss';
+import paper from 'paper';
+import './assets/stylesheets/index.scss';
+import {Step0, Step1, Step2} from './components/index.js';
 
-class Input extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      focused: false,
+class Scene {
+  constructor() {
+    this.wW = 400;
+    this.wH = 200;
+    this.mdlW = this.wW / 2,
+    this.mdlH = this.wH / 2;
+
+    this.eventsManager = {
+      step0: false,
+      step1: false,
+      step2 : false,
+    };
+    this.eventsArr = Object.keys(this.eventsManager);
+    this.eventsArrLength = this.eventsArr.length - 1;
+    this.events = {
+      // step1: new Event('step1'),
+    };
+
+    // document.body.onclick = (e) => {
+    //   this.isBlack = !this.isBlack;
+    //   let className = 'flex justify-center align-center';
+    //   if (this.isBlack) {
+    //     className += ' is-black';
+    //   }
+    //   document.body.className = className;
+    // };
+  }
+
+  init() {
+    // init step/event
+    this.step0 = new Step0(this);
+    this.step0.start();
+
+    this.step1 = new Step1(this);
+    this.step1.start();
+
+
+    this.step2 = new Step2(this);
+    this.step2.start();
+
+    // trigger action
+    for (let i = 0;i <= this.eventsArrLength; i++) {
+      const event = this.eventsArr[i];
+
+      if (this.eventsManager[event]) {
+        this.createEvent(event);
+      }
+    }
+
+    // this.start();
+  }
+
+  start() {
+    // fake event
+    // this.targetIndex = 0;
+    // this.target = this.eventsArr[this.targetIndex];
+    //
+    // this.oldTargetIndex = this.eventsArrLength - 1;
+    // this.oldTarget = this.eventsArr[this.oldTargetIndex];
+    //
+    // let newVal = {};
+    // newVal[this.oldTarget] = !this.eventsManager[this.oldTarget];
+    // newVal[this.target] = !this.eventsManager[this.target];
+    // this.eventsOrchestrator(newVal);
+
+    setInterval(() => {
+      // init step/event
+      const step0 = this.eventsManager.step0;
+      const step1 = this.eventsManager.step1;
+      const newTarget = {
+        step0: !step0,
+        step1: !step1,
+      }
+      this.eventsOrchestrator(newTarget);
+      return;
+      // iterate between [index]
+      // this.oldTargetIndex = this.targetIndex;
+      // this.oldTarget = this.target;
+      //
+      // this.targetIndex = this.targetIndex + 1 > this.eventsArrLength ? 0 : this.targetIndex + 1;
+      // this.target = this.eventsArr[this.targetIndex];
+      //
+      // let newVal = {};
+      // newVal[this.oldTarget] = !this.eventsManager[this.oldTarget];
+      // newVal[this.target] = !this.eventsManager[this.target];
+      // this.eventsOrchestrator(newVal);
+    }, 2000);
+  }
+
+  eventsOrchestrator(newTarget) {
+    // console.log("--------");
+    // console.log(newTarget,  this.eventsManager);
+    const keys = Object.keys(newTarget);
+    for (let i = 0;i <= keys.length; i++) {
+      const event = keys[i];
+      const newValue = newTarget[event];
+      if (this.eventsManager[event] !== newValue) {
+        this.eventsManager[event] = newValue;
+        this.createEvent(event, newValue);
+      }
     }
   }
 
-  focused() {
-    this.setState({focused:true});
-  }
-
-  focusedOut() {
-    this.setState({focused:false});
-    this.props.validate();
-  }
-
-  render() {
-    this.inputClass = 'beautify-it'
-    this.inputClass += this.state.focused ? ' is-focused' : '';
-    this.inputClass += this.props.isValid ? ' is-valid' : '';
-
-    return (
-      <p className={this.inputClass}>
-        <input
-          type={this.props.type}
-          name={this.props.name}
-          placeholder={this.props.name}
-          onFocus={() => this.focused()}
-          onBlur={() => this.focusedOut()}
-        />
-
-        <i className={`fas ${this.props.fa}`}/>
-      </p>
-    )
-  }
-}
-
-const validMap = {
-  date: (content) => {
-    return content.length > 0;
-  },
-  titre: (content) => {
-    return content.length > 0;
-  },
-  prixHT: (content) => {
-    return true;
-  },
-  prixTTC: (content) => {
-    return true;
-  },
-  tauxTVA: (content) => {
-    return true;
-  },
-  valeurTVA: (content) => {
-    return true;
-  },
-}
-
-class Form extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      date: false,
-      titre: false,
-      prixHT: false,
-      prixTTC: false,
-      tauxTVA: false,
-      valeurTVA: false,
+  createEvent(event, value) {
+    console.log('event create', event);
+    if (this.events[event]) {
+      return window.dispatchEvent(this.events[event]);
     }
-  }
-
-  validate(name) {
-    const content = document.querySelector(`input[name='${name}']`).value;
-    const state = this.state;
-    state[name] =  validMap[name](content);
-    this.setState(state);
-  }
-
-  createInput(type, name, placeholder, fa) {
-    return (
-      <Input
-        type={type}
-        name={name}
-        placeholder={placeholder}
-        fa={fa}
-        validate={() => this.validate(name)}
-        isValid={this.state[name]}
-      />
-    )
-  }
-
-  createInput(type, name, placeholder, fa) {
-    render() {
-      <Input
-        type={type}
-        name={name}
-        placeholder={placeholder}
-        fa={fa}
-        validate={() => this.validate(name)}
-        isValid={this.state[name]}
-      />
-    }
-  }
-
-  render() {
-    return (
-      <section className="add-pro-bill">
-        <header className="add-pro-bill-header">
-          <h1 className="add-pro-bill-header-title">
-            <i className="fas fa-plus"></i>
-            nouveau frais pro
-          </h1>
-        </header>
-        <div className="add-pro-bill-content">
-          <div className="add-pro-bill-container global">
-            {this.createInput('date', 'date', 'Date', 'fa-calendar-check');}
-            {this.createInput('text', 'titre', 'Titre', 'fa-certificate');}
-          </div>
-
-          <div className="add-pro-bill-container price">
-            {this.createInput('number', 'prixHT', 'Prix HT (€)', 'fa-money-bill');}
-            {this.createInput('number', 'prixTTC', 'Prix TTC (€)', 'fa-money-bill');}
-          </div>
-
-          <div className="add-pro-bill-container tva">
-            {this.createInput('number', 'tauxTVA', 'Taux TVA (%)', 'fa-money-bill');}
-            {this.createInput('number', 'valeurTVA', 'Valeur TVA (€)', 'fa-money-bill');}
-          </div>
-        </div>
-        <footer className="add-pro-bill-footer">
-          <a className="btn btn-primary" href="">ajouter un nouveau</a>
-          <a className="btn btn-primary" href="">retour à la liste</a>
-        </footer>
-      </section>
-    )
+    this.events[event] = new Event(event);
+    window.dispatchEvent(this.events[event]);
   }
 }
 
-
-ReactDOM.render(
-  <Form/>,
-  document.getElementById('root')
-);
+window.onload = () => {
+  const test = new Scene(paper);
+  test.init();
+}
