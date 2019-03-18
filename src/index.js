@@ -1,11 +1,12 @@
 import paper from 'paper';
 import './assets/stylesheets/index.scss';
-import {Step0, Step1, Step2} from './components/index.js';
+import {Intro,  Step0, Step1, Step2} from './components/index.js';
+import $ from 'jquery';
 
 class Scene {
   constructor() {
     this.wW = 400;
-    this.wH = 200;
+    this.wH = 300;
     this.mdlW = this.wW / 2,
     this.mdlH = this.wH / 2;
 
@@ -14,6 +15,7 @@ class Scene {
       step1: false,
       step2 : false,
     };
+
     this.eventsArr = Object.keys(this.eventsManager);
     this.eventsArrLength = this.eventsArr.length - 1;
     this.events = {
@@ -28,19 +30,28 @@ class Scene {
     //   }
     //   document.body.className = className;
     // };
+
+    $('body').on('click', () => {
+      this.init();
+    });
   }
 
   init() {
+    this.intro = new Intro(this);
+    this.intro.init();
+
     // init step/event
     this.step0 = new Step0(this);
-    this.step0.start();
 
-    this.step1 = new Step1(this);
-    this.step1.start();
-
-
-    this.step2 = new Step2(this);
-    this.step2.start();
+    window.addEventListener('introEnd', (e) => {
+      this.step0.start();
+    }, false);
+    //
+    // this.step1 = new Step1(this);
+    // this.step1.start();
+    //
+    // this.step2 = new Step2(this);
+    // this.step2.start();
 
     // trigger action
     for (let i = 0;i <= this.eventsArrLength; i++) {
@@ -117,5 +128,4 @@ class Scene {
 
 window.onload = () => {
   const test = new Scene(paper);
-  test.init();
 }

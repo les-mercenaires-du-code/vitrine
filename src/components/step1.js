@@ -1,6 +1,8 @@
 import {Mc, Util} from '../commons/index.js';
 import paper from 'paper';
 
+// TODO: revoir la partie onFrame/animation
+
 class Step1 extends Mc {
   constructor($scene) {
     super($scene);

@@ -7,12 +7,31 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>React and Webpack4</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
   </head>
 
-  <body class="flex justify-center align-center">
+  <body>
+    <section class="section-intro justify-center">
+      <section>
+        <canvas id="intro"></canvas>
+        <canvas id="step0"></canvas>
+      </section>
+      <hr class="hided">
+      <div class="section-intro-content">
+        <h3 class="intro-title justify-center">
+          les mercenaires du
+          <p class="mercenary-of-what">
+            <span class="mercenaires-du-code animated">code</span>
+            <span class="mercenaires-du-cul animated">cul</span>
+          </p>
+        </h3>
+        <span class="reveal-hided"></span>
+      </div>
+    </section>
+    <section class="flex justify-center align-center">
     <canvas id="step1"></canvas>
-    <canvas id="step0"></canvas>
     <canvas id="step2"></canvas>
+    </section>
   </body>
 
 </html>

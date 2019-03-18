@@ -3,7 +3,58 @@ body {
   height: 100%;
   background: #e6e5e8;
 
-  &.is-black {
+  // &.is-black {
+  // }
+  // canvas {
     background: #23212D;
+  // }
+
+  .hided {
+   opacity: 0;
+   margin: 0;
   }
+
+  .section-intro {
+    padding-top: 100px;
+
+    canvas {
+      margin-left: 70px;
+    }
+
+    .section-intro-content {
+      position: relative;
+      display: inline-block;
+
+      .intro-title {
+        padding: 0 5px;
+        font-variant: small-caps;
+        letter-spacing: .5rem;
+        font-weight: 100;
+        font-family: helvetica neue, helvetica;
+        color: #E8E8E8;
+        font-size: 1.8rem;
+
+        .mercenary-of-what {
+          position: relative;
+          display: inline-block;
+        }
+
+        .mercenaires-du-cul {
+          position: absolute;
+          top: 0;
+          left: 0;
+        }
+      }
+
+      .reveal-hided {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: #23212D;
+      }
+    }
+  }
+
 }

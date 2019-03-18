@@ -1,5 +1,6 @@
 import {Mc, Util} from '../commons/index.js';
 import paper from 'paper';
+import $ from 'jquery';
 
 class Step0 extends Mc {
   constructor($scene) {
@@ -21,6 +22,8 @@ class Step0 extends Mc {
     this.canvas.onclick = (e) => {
       this.isRunning ? this.stop() : this.start();
     };
+
+    $(this.canvas).hide();
   }
 
   init() {
@@ -46,6 +49,7 @@ class Step0 extends Mc {
   }
 
   start() {
+    $('#step0').show();
     if (!this.mGroup) this.init();
 
     this.isRunning = true;
