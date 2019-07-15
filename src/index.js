@@ -1,14 +1,23 @@
 import paper from 'paper';
 import './assets/stylesheets/index.scss';
-import {Intro,  Step0, Step1, Step2} from './components/index.js';
+import {Intro, Flashinglights, Step0, Step1, Step2} from './components/index.js';
 import $ from 'jquery';
 
 class Scene {
   constructor() {
-    this.wW = 400;
-    this.wH = 300;
-    this.mdlW = this.wW / 2,
-    this.mdlH = this.wH / 2;
+    this.$scene = {
+      wW : 386,
+      wH : 253,
+      mdlW : 386 / 2,
+      mdlH : 253 / 2,
+    };
+
+
+    // $('canvas').width(this.wW);
+    // $('canvas').height(this.wH);
+    $('canvas').width(386);
+    $('canvas').height(253);
+
 
     this.eventsManager = {
       step0: false,
@@ -31,22 +40,40 @@ class Scene {
     //   document.body.className = className;
     // };
 
-    $('body').on('click', () => {
-      this.init();
-    });
+    // $('body').on('click', () => {
+    //   this.init();
+    // });
+    this.init();
   }
 
   init() {
-    this.intro = new Intro(this);
+    console.log(paper);
+    // // FLASHING LIGHTS
+    this.flash = new Flashinglights(this.$scene);
+    // this.flash.init(this.$scene);
+
+    setTimeout(() => {
+      // this.flash.init(this.$scene);
+      // this.intro.init(this.$scene);
+    }, 1000)
+
+    // CLOSE LIGHTS AND MAKE IT HAPPEN
+    this.intro = new Intro(this.$scene);
     this.intro.init();
 
+    // START CINEMATIC
     // init step/event
-    this.step0 = new Step0(this);
-
     window.addEventListener('introEnd', (e) => {
+      this.step0 = new Step0(this.$scene);
       this.step0.start();
+      // this.flash.init(this.$scene);
+
+      setInterval(() => {
+        // this.flash.init(this.$scene);
+      }, 1000);
     }, false);
-    //
+
+
     // this.step1 = new Step1(this);
     // this.step1.start();
     //

@@ -4,13 +4,14 @@ import $ from 'jquery';
 
 class Step0 extends Mc {
   constructor($scene) {
-    super($scene);
+    super();
+
     this.canvas = document.getElementById('step0');
     this.ctx = this.canvas.getContext('2d');
-    this.color = ['#42c9be', '#d6643b', '#63074f'];
+    // this.colorSAVED = ['#42c9be', '#d6643b', '#63074f'];
+    this.color = ['rgb(13, 8, 11)', 'rgb(35, 37, 38)', 'rgb(82, 87, 89)'];
     this.$scene = $scene;
-    this.paper = paper.setup(this.canvas);
-    this.isRunning = false;
+    this.paper = new paper.PaperScope().setup(this.canvas);
 
     this.triLength = 12;
     this.triangleGroupArr = [];
@@ -18,17 +19,11 @@ class Step0 extends Mc {
     window.addEventListener('step0', (e) => {
       this.isRunning ? this.stop() : this.start();
     }, false);
-
-    this.canvas.onclick = (e) => {
-      this.isRunning ? this.stop() : this.start();
-    };
-
-    $(this.canvas).hide();
   }
 
   init() {
     // draw MC
-    this.initMc()
+    this.initMc(1,1);
 
     // draw triangles
     this.triangleGroup = new this.paper.Group();
@@ -49,10 +44,10 @@ class Step0 extends Mc {
   }
 
   start() {
-    $('#step0').show();
     if (!this.mGroup) this.init();
 
     this.isRunning = true;
+
     // animation
     this.paper.view.onFrame = (time) => this.onFrame(time);
   }
@@ -60,8 +55,8 @@ class Step0 extends Mc {
   stop() {
     this.isRunning = false;
     // animation
-    // this.paper.clear();
     this.paper.view.onFrame = (time) => {};
+    this.paper.clear();
   }
 
   createTri(){

@@ -5,13 +5,16 @@ import $ from 'jquery';
 
 class Intro extends Mc {
   constructor($scene) {
-    super($scene);
+    super();
+
+    this.$scene = $scene;
     this.canvas = document.getElementById('intro');
     this.ctx = this.canvas.getContext('2d');
-    this.$scene = $scene;
-    this.paper = paper.setup(this.canvas);
+    this.paper = new paper.PaperScope().setup(this.canvas);
+    this.paper.name = 'intro';
     this.animationEndTime = undefined;
-    this.duration = 5000;
+    this.duration = 1000;
+
 
     window.addEventListener('intro', (e) => {
       this.isRunning ? this.stop() : this.start();
@@ -21,19 +24,19 @@ class Intro extends Mc {
   }
 
   init() {
-    this.mPath = new paper.Path(this.mPathJoined);
+    this.mPath = new this.paper.Path(this.mPathJoined);
     this.mPathCloned = this.mPath.clone();
     this.mTreatment(0);
 
-    this.mBisPath = new paper.Path(this.mbisPatJoined);
+    this.mBisPath = new this.paper.Path(this.mbisPatJoined);
     this.mBisPathCloned = this.mBisPath.clone();
     this.mBisTreatment(0);
 
-    this.cPath = new paper.Path(this.cPathJoined);
+    this.cPath = new this.paper.Path(this.cPathJoined);
     this.cPathCloned = this.cPath.clone();
     this.cTreatment(0);
 
-    // mercenaires du cul
+    // TEMP : mercenaires du cul -- JQUERY/CSS RIEN A FAIRE LA
     this.revealContent = $('.section-intro-content .reveal-hided');
     this.code = $('.mercenaires-du-code');
     this.cul = $('.mercenaires-du-cul');
@@ -65,8 +68,12 @@ class Intro extends Mc {
   stop() {
     this.isRunning = false;
     // animation
-    // this.paper.clear();
     this.paper.view.onFrame = (time) => {};
+
+    // clean
+    this.cPathCloned.remove();
+    this.mPathCloned.remove();
+    this.mBisPathCloned.remove();
   }
 
   onFrame(time) {
@@ -114,6 +121,7 @@ class Intro extends Mc {
     this.mBisPathCloned.remove();
     this.mBisPathCloned = this.mBisPath.clone();
     this.mBisPathCloned.segments[0].animationMark = true;
+
     const newPoint = this.mBisPathCloned.getNearestLocation(this.mBisPathCloned.getPointAtPercent(percent));
     this.mBisPathCloned.splitAt(newPoint);
     const markIndex = _.findIndex(this.mBisPathCloned.segments,'animationMark');
@@ -135,11 +143,8 @@ class Intro extends Mc {
   }
 
   finishIntro() {
-    this.cPathCloned.remove();
-    this.mPathCloned.remove();
-    this.mBisPathCloned.remove();
-    $(this.canvas).hide();
     window.dispatchEvent(this.callbackEvent);
+    this.stop();
   }
 }
 
